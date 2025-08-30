@@ -1,2 +1,2 @@
 # QSAI
-Discord Bot for private server
+Discord Bot for a private server
