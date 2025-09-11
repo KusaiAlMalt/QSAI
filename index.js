@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, Collector } = require('discord.js');
 
 const client = new Client({
   intents: [
@@ -19,5 +19,27 @@ client.once('ready', () => {
 client.on('messageCreate', message => {
   if (message.content === '!ping') {
     message.reply('Pong!');
+  }
+});
+
+client.on('messageCreate', async message => {
+  if (message.content === '!codenames'){
+    await message.reply('Provide player names seperated by a comma (,)');
+
+    const filter = m => m.author.id === message.author.id;
+    try{
+      const collected = await message.channel.awaitMessages({
+        filter,
+        max:1,
+        time:15000,
+        errors:['time']
+      });
+
+      const reply = collected.first();
+      message.channel.send(`Names provided: ${reply.content}`);
+
+    }catch{
+      message.channel.send('You ass too slow');
+    }
   }
 });
