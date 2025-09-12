@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const { Client, GatewayIntentBits, Collector } = require('discord.js');
+const { divideTeams } = require('./TeamDivider.js');
 
 const client = new Client({
   intents: [
@@ -36,7 +37,9 @@ client.on('messageCreate', async message => {
       });
 
       const reply = collected.first();
-      message.channel.send(`Names provided: ${reply.content}`);
+      const nameList = reply.content.split(',');
+      const teams = divideTeams(nameList);
+      message.channel.send(`Blue Team: ${teams[0].join(', ')}\nRed Team: ${teams[1].join(', ')}`);
 
     }catch{
       message.channel.send('You ass too slow');
