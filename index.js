@@ -1,20 +1,7 @@
 require('dotenv').config();
+const { loadCommands } = require('./utils/commandLoader');
+
 const { Client, GatewayIntentBits, Collector } = require('discord.js');
-
-//Could be refactored in its own setup step and return the map of the commands with their names, sepereation of concerns
-const fs = require('fs');
-const path = require('path');
-
-const commands = new Map();
-
-const commandFiles = fs.readdirSync(path.join(__dirname, 'commands'))
-                        .filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles){
-  const command = require(`./commands/${file}`);
-  commands.set(command.name, command);
-}
-
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds, 
@@ -29,7 +16,9 @@ client.once('clientReady', () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
 });
 
+const commands = loadCommands();
 const PREFIX = '!'
+
 client.on('messageCreate', message =>{
   if(!message.content.startsWith(PREFIX) || message.author.bot) return;
 
