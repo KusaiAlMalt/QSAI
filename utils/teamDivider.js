@@ -1,33 +1,30 @@
-function divideTeams(namesList){
+module.exports = {
+    divideIntoTwoTeams(namesList){
 
+        var len = namesList.length;
+        var firstTeam = [];
+        var secondTeam = [];
         
-    var len = namesList.length;
-    var blueTeam = [];
-    var redTeam = [];
-    
-    var indexSet = new Set();
+        var indexSet = new Set();
 
-    var randInt = Math.floor(Math.random()*namesList.length);
+        var randInt = Math.floor(Math.random()*namesList.length);
 
-    while (len>0){
-        while(indexSet.has(randInt)){
-           randInt = Math.floor(Math.random()*namesList.length);
+        while (len>0){
+            while(indexSet.has(randInt)){
+            randInt = Math.floor(Math.random()*namesList.length);
+            }
+
+            if (len%2===0){
+                firstTeam.push(namesList[randInt]);
+            }
+            else{
+                secondTeam.push(namesList[randInt]);
+            }
+            
+            indexSet.add(randInt)
+            len--;
         }
 
-        if (len%2===0){
-            blueTeam.push(namesList[randInt].trim());
-        }
-        else{
-            redTeam.push(namesList[randInt].trim());
-        }
-        
-        indexSet.add(randInt)
-        len--;
+        return [firstTeam, secondTeam];
     }
-
-
-
-    return [blueTeam, redTeam];
 }
-
-module.exports = { divideTeams };
