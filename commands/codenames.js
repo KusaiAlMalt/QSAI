@@ -9,21 +9,19 @@ module.exports = {
             return
         }
         if(args == 1 && args==='load'){
-            //load last used names and randomize
+            //load last used names
         }
 
         const [blueTeam, redTeam] = divideIntoTwoTeams(args);
 
-        const blueSM = chooseSpyMaster(teamNames);
-        const redSM = chooseSpyMaster(teamNames);
-
-
+        const blueSM = chooseSpyMaster(blueTeam);
+        const redSM = chooseSpyMaster(redTeam);
 
         //embed this message instead of literal
-        message.reply(`Blue Team: ${blueTeam.join(', ')}\nRed Team: ${redTeam.join(', ')}`);
+        message.reply(`Blue Team: ${blueTeam.join(', ')} (SpyMaster: ${blueSM})\nRed Team: ${redTeam.join(', ')} (SpyMaster: ${redSM})`);
     }
 }
 
 function chooseSpyMaster(teamNames){
-
+    return teamNames[Math.floor(Math.random()*teamNames.length)];
 }
