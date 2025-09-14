@@ -1,6 +1,8 @@
 const { EmbedBuilder } = require('discord.js');
 const { divideIntoTwoTeams } = require('../utils/teamDivider.js');
 
+let lastUsedNames = null;
+
 module.exports = {
     name: 'codenames',
     description: 'divides into blue and red team with 1 spymaster each',
@@ -10,13 +12,17 @@ module.exports = {
             message.reply(`You provided no names. ${this.example}`)
             return;
         }
-        if (args.length === 1 && args[0] === 'load') {
-            // load last used names
+        if (args.length === 1 && args[0].toLowerCase() === 'load') {
+            if(!lastUsedNames){
+                message.reply(`No names to load, use this command at least once before trying to load\n${this.example}`);
+                return;
+            }
         }
         if (args.length < 4) {
             message.reply(`Provide at least four names. ${this.example}`)
             return;
         }
+        lastUsedNames = args;
 
         const [blueTeam, redTeam] = divideIntoTwoTeams(args);
 
