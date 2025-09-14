@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const { loadCommands } = require('./utils/commandLoader');
 
 const { Client, GatewayIntentBits, Collector } = require('discord.js');
