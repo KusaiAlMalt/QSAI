@@ -8,28 +8,35 @@ module.exports = {
     description: 'divides into blue and red team with 1 spymaster each',
     example: 'Example of how to use the command:\n`!codenames Alice Bob Carol Eve`',
     execute(message, args) {
+        //TODO refactor base cases
         if (args.length <= 0) {
             message.reply(`You provided no names. ${this.example}`)
             return;
         }
+        //TODO refactor one arg commands
         if (args.length === 1 && args[0].toLowerCase() === 'load') {
             if(!lastUsedNames){
                 message.reply(`No names to load, use this command at least once before trying to load\n${this.example}`);
                 return;
             }
         }
+        if (args.length === 1 && args[0].toLowerCase() === 'fetch'){
+            //TODO fetch ids to open frequency channel, pick teams and send embed with their names, generlize it later by picking the channel the user that sent the query is in
+        }
+        //TODO refactor base case
         if (args.length < 4) {
             message.reply(`Provide at least four names. ${this.example}`)
             return;
         }
         lastUsedNames = args;
 
-        const [blueTeam, redTeam] = divideIntoTwoTeams(args);
+        //TODO refactor, execute does the dividings and the pickings
+        const [blueTeam, redTeam] = divideIntoTwoTeams(lastUsedNames);
 
         const [[blueSpymaster], blueOperatives] = pickSpymasterAndOperative(blueTeam);
         const [[redSpymaster], redOperatives] = pickSpymasterAndOperative(redTeam);
 
-        // build embed
+        //TODO refactor embed message
         const embed = new EmbedBuilder()
             .setColor(0x1abc9c)
             .setTitle('🂠 Codenames Teams')
