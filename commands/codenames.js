@@ -8,7 +8,6 @@ module.exports = {
     description: 'divides into blue and red team with 1 spymaster each',
     example: 'Example of how to use the command:\n`!codenames Alice Bob Carol Eve`',
     execute(message, args) {
-        console.log(lastUsedNames);
         //TODO refactor base cases
         if (args.length <= 0) {
             message.reply(`You provided no names. ${this.example}`)
@@ -31,7 +30,6 @@ module.exports = {
             return;
         }
         lastUsedNames = args;
-        console.log(lastUsedNames);
 
         //TODO refactor, execute does the dividings and the pickings
         const [blueTeam, redTeam] = divideIntoTwoTeams(lastUsedNames);
