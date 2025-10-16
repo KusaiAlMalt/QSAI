@@ -2,11 +2,10 @@
 Discord Bot for a private server
 
 ## How to run
-This project uses node.js
+This project uses `node.js`
 
+run `npm install` inside the QSAI folder
 
-run npm install inside the QSAI folder
+rename `.env.example` to `.env` and put your tokens in there
 
-create .env and put your DISCORD_TOKEN in there
-
-node index.js, and should be good to go
+run `node index.js`, and should be good to go
